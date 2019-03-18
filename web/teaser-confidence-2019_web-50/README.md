@@ -8,31 +8,31 @@ Challenge description:
 
 We are given a URL. When we visit it we find the following screen:
 
-![](/1.png?raw=true)
+![](pics/1.png?raw=true)
 
 It seems to be a user and password. Let's try some random values, like `fabada`/`fabada123` and submit the form. 
 
 Apparently we're in:
 
-![](/2.png?raw=true)
+![](pics/2.png?raw=true)
 
 Let's check the Profile section:
 
-![](/3.png?raw=true)
+![](pics/3.png?raw=true)
 
 Here we can set some values that will be stored at the server with a POST to `/profile/fabada`. We try clearing cookies and logging in again, and we find that the values are kept. Therefore, we effectively created an account at the platform, and our profile can be found at `/profile/<USERNAME>`. Interestingly enough we can upload some file as the avatar, we'll keep an eye out for that...
 
 Let's now check the Report section:
 
-![](/4.png?raw=true)
+![](pics/4.png?raw=true)
 
 We found that in this screen we can submit a URL from this domain. Actually not every single one, but profiles are allowed. We try sending our own profile and we get the following response:
 
-![](/5.png?raw=true)
+![](pics/5.png?raw=true)
 
 Mmh do we now what that means? Starts sounding like a client-side attack... We can probably make the admin visit our own profile. Talking about `admin`, let's try and see if he has his own profile:
 
-![](/6.png?raw=true)
+![](pics/6.png?raw=true)
 
 Yes he does! But we don't get the option to edit any field as with our own profile (obviously). We try with another account to check our own profile, and we confirm that that's how profiles for other users are displayed.
 
@@ -54,17 +54,17 @@ Let's now look for the client side attack. Back to our own profile, we try sever
 
 After uploading the image, the profile is shown and nothing happens:
 
-![](/7.png?raw=true)
+![](pics/7.png?raw=true)
 
 Visiting the image's URL, however...
 
-![](/8.png?raw=true)
+![](pics/8.png?raw=true)
 
 Nice! Hopefully we can submit this for the admin to check out? Yes we can. The full URL we send is something of the sort:
 
 `http://web50.zajebistyc.tf/avatar/82b956e443066b3179e9493507c12344a87585d36d3aa92ae02710b1f1d1da5f/fabada_avatar.svg`
 
-![](/5.png?raw=true)
+![](pics/5.png?raw=true)
 
 How can we leverage this to compromise the admin? We tried two failed approaches:
 
@@ -101,6 +101,6 @@ The payload:
 
 After reporting the URL of the new uploaded malicious SVG, a request was received by the Collaborator which included the flag!
 
-![](/9.png?raw=true)
+![](pics/9.png?raw=true)
 
 
